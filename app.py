@@ -98,8 +98,9 @@ def create():
     amount = data.get('amount')
     currency = data.get('currency')
     redirect_url = data.get('redirect_url')
+    title = data.get('title')
 
-    if not all([name, email, phone, amount, currency,redirect_url]):
+    if not all([name, email, phone, amount, currency,redirect_url,title]):
         return jsonify({'error': 'Missing data'}), 400
 
     tx_ref = generate_unique_transaction_reference()
@@ -122,7 +123,7 @@ def create():
             'phonenumber': phone
         },
         'customizations': {
-            'title': 'Flutterwave Standard Payment'
+            'title': title
         }
     }
 
