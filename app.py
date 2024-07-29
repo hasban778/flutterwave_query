@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 # Dummy user data
 USER_DATA = {
-    "username": "testusercorniche",
-    "password": "password890/CSG![HELLO}Street"
+    "username": os.getenv("username"),
+    "password": os.getenv("password")
 }
 
 # Initialize the SQLite database
