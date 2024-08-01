@@ -88,7 +88,7 @@ def login_required(f):
     return decorated_function
 
 @app.route('/create', methods=['POST'])
-@login_required
+
 def create():
     data = request.get_json()
 
