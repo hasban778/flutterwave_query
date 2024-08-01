@@ -7,10 +7,12 @@ import string
 import random
 from dotenv import load_dotenv
 import logging
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Secret key for session management
 app.secret_key = os.getenv('SECRET_KEY', 'default_secret_key')
@@ -57,11 +59,6 @@ def tx_ref_exists(tx_ref):
     conn.close()
     return exists
 
-# @app.before_request
-# def log_request_info():
-#     logger.info('Headers: %s', request.headers)
-#     logger.info('Body: %s', request.get_data())
-
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -101,7 +98,7 @@ def create():
     title = data.get('title')
     secret = data.get('secret')
 
-    if not all([name, email, phone, amount, currency,redirect_url,title]):
+    if not all([name, email, phone, amount, currency, redirect_url, title, secret]):
         return jsonify({'error': 'Missing data'}), 400
 
     tx_ref = generate_unique_transaction_reference()
