@@ -99,6 +99,7 @@ def create():
     currency = data.get('currency')
     redirect_url = data.get('redirect_url')
     title = data.get('title')
+    secret = data.get('secret')
 
     if not all([name, email, phone, amount, currency,redirect_url,title]):
         return jsonify({'error': 'Missing data'}), 400
@@ -132,7 +133,7 @@ def create():
             'https://api.flutterwave.com/v3/payments',
             json=flutterwave_payload,
             headers={
-                'Authorization': f'Bearer {os.getenv("FLW_SECRET_KEY")}',
+                'Authorization': f'Bearer {secret}',
                 'Content-Type': 'application/json'
             }
         )
